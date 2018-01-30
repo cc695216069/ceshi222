@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	body{
+		font-family:"Microsoft Yahei";
+	}
+	.banner{
+		width:224px;
+		background-image:url(images/banner.jpg);
+		height:317px;
+		margin:200px auto;
+		position:relative;
+		padding-top:60px;
+		text-align:center;
+	}
+	.content{
+		width:100%;
+		height:100%;
+		position:absolute;
+		left:0;
+		top:0;
+		background-color:#000;
+		opacity:0;
+		transition:all .5s;
+	}
+	.banner:hover .content{
+		opacity:.3;
+		cursor:pointer;
+	}
+	p{
+		line-height: 36px;
+		font-size:28px;
+		color:#615548;
+		margin-bottom: 11px;
+	}
+	.line{
+		display:block;
+		width:20px;
+		height:2px;
+		margin:0 auto 18px auto;
+		background-color: #61594b;
+
+	}
+	.time{
+		display:inline-block;
+		margin-bottom:18px;
+		font-size:18px;
+		color:#615548;
+		line-height:22px;
+	}
+	.rest{
+		display:inline-block;
+		margin-bottom:50px;
+		line-height: 40px;
+		text-align: center;
+	}
+	.examine{
+		display:inline-block;
+		width:110px;
+		height:30px;
+		margin:0 auto;
+		color:#fff;
+		font-size:14px;
+		background-color:#a7936e;
+		cursor:pointer;
+		border-radius:15px;
+		line-height:30px;
+	}
+	.rest span:nth-child(odd) {
+		display:inline-block;
+		width:40px;
+		line-height:40px;
+		font-size:18px;
+		color:#fff;
+		background-color:#615548;
+		border-radius:2px;
+	}
+	.rest span:nth-child(even){
+		text-align:center;
+		font-size:12px;
+		display: inline-block;
+		font-weight:bold;
+		padding:0 2px;
+		color:#333;
+	}
+	</style>
+</head>
+<body>
+<div class="banner">
+	<div class="content"></div>
+	<p>18点场</p>
+	<span class="line"></span>
+	<span class="time">距离结束还剩</span>
+	<div class="rest">
+		<span id="hour"></span>
+		<span>:</span>
+		<span id="minute"></span>
+		<span>:</span>
+		<span id="second"></span>
+	</div>
+	<span class="examine">查看全部&nbsp></span>
+	<script>
+		var hour=document.getElementById('hour');
+		var minute=document.getElementById('minute');
+		var second=document.getElementById('second');
+		function sysj(){
+			var date=new Date();
+			var deadline=new Date();
+			var newday=deadline.setDate(30);
+			var	newmonth=deadline.setMonth(0);
+			var newhour=deadline.setHours(18);
+			var newminute=deadline.setMinutes(0);
+			var newsecond=deadline.setSeconds(0);
+			var s=(deadline.getTime()-date.getTime())/1000;
+			// 倒计时的设置
+			restHour=parseInt(s/3600);
+			restMinute=parseInt((s-restHour*3600)/60);
+			// console.log(restMinute)
+			restSecond=parseInt((s-restHour*3600-restMinute*60));
+			// console.log(restSecond)
+			// 加零
+			for(var i = 0 ; i < 10 ; i++){
+				if( restHour== i){
+					restHour = "0" + restHour;
+				}				
+				if(restMinute == i){
+					restMinute = "0" + restMinute;
+				}
+				if(restSecond == i){
+					restSecond = "0" + restSecond;
+				}
+			}
+			hour.innerHTML=restHour;
+			minute.innerHTML=restMinute;
+			second.innerHTML=restSecond;
+		}
+		setInterval(function(){
+			sysj();
+		},1000);
+		sysj();
+		//  随机颜色的获取
+		function sjys(){
+			var colorArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"];
+			var col = "#"
+			for(var i = 0 ; i < 6 ; i++){
+				var s = Math.floor(Math.random()*16);
+				col += colorArr[s];
+			}
+			return col;
+		}
+		setInterval(function(){
+			hour.style.color = sjys();
+			minute.style.color = sjys();
+			second.style.color = sjys();
+		},1000);
+	</script>
+</div>	
+</body>
+</html>

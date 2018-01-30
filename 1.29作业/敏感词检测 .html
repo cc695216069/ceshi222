@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+	.fault{
+		color:pink;
+	}
+	.pass{
+		color:skyblue ;
+	}
+	.yellow{
+		background-color:yellow;
+	}
+	/*#button{
+		width:80px;
+		height:30px;
+		border-radius:5px;
+		line-height:30px;
+		color:#fff;
+		background-color:#333;
+		text-align:center;
+		border:none;
+	}*/
+</style>
+</head>
+<body>
+<p><textarea id="text" cols="30" rows="10"></textarea></p>
+<p><button id="button">检测敏感词库</button></p>
+<p><span id="result"></span></p>
+<p id="write"></p>
+<script>
+	var obj=document.getElementById('text');
+	var btn=document.getElementById("button");
+	var result=document.getElementById("result");
+	var edit=document.getElementById("write");
+	var wordArr=["毛泽东","中南海","钓鱼岛","五四运动","胡锦涛","天安门","最高级","世界级","唯一"]; 
+	btn.onclick=function(){
+		// 获取文本域里面的字符串
+		var	text=obj.value;
+		// 将文本域里面的字符串显示给p；
+		edit.innerHTML=text;
+		// 定义变量是否有敏感词存在
+		var errorHas=false;
+		// 枚举每个敏感词
+		for(var i=0;i<wordArr.length-1;i++){
+			判断是否存在敏感词
+			if(text.indexOf(wordArr[i])!==-1){
+				// 存在即变为true;
+				errorHas=true;
+				edit.innerHTML=edit.innerHTML.replace(wordArr[i],"<span class='yellow'>"+wordArr[i]+"</span>");
+			}
+		}
+		if(errorHas){
+			result.className="fault";
+			result.innerHTML="小心,有敏感词出现!!!!"
+		}else{
+			result.className="pass";
+			result.innerHTML="通过";
+			edit.innerHTML="";
+		}
+	}		
+</script>	
+</body>
+</html>
